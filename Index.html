@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahboobunnisa | Software Engineer Portfolio</title>
+    <style>
+        :root {
+            --color-bg-main: #0b0f19;
+            --color-bg-surface: #131a26;
+            --color-bg-tag: #1e293b;
+            --color-text-primary: #f8fafc;
+            --color-text-secondary: #94a3b8;
+            --color-accent-blue: #38bdf8;
+            --color-accent-green: #34d399;
+            --color-border: #223147;
+            --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--color-bg-main);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            padding: 4rem 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .portfolio-container {
+            max-width: 1050px;
+            width: 100%;
+        }
+
+        /* Hero Header Styling */
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding-bottom: 3.5rem;
+            border-bottom: 1px solid var(--color-border);
+            margin-bottom: 4rem;
+        }
+
+        .hero-section h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            background: linear-gradient(to right, var(--color-text-primary), var(--color-accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-title {
+            font-size: 1.4rem;
+            color: var(--color-accent-blue);
+            font-weight: 500;
+            margin-top: -0.5rem;
+        }
+
+        .hero-bio {
+            font-size: 1.15rem;
+            color: var(--color-text-secondary);
+            max-width: 800px;
+        }
+
+        .action-bar {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .action-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.65rem 1.25rem;
+            background-color: var(--color-bg-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            transition: var(--transition-smooth);
+        }
+
+        .action-link:hover {
+            border-color: var(--color-accent-blue);
+            transform: translateY(-2px);
+            background-color: #162235;
+        }
+
+        /* Section Rules */
+        section {
+            margin-bottom: 5rem;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background: var(--color-border);
+        }
+
+        /* Grid Architecture */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-card {
+            background-color: var(--color-bg-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: var(--transition-smooth);
+        }
+
+        .skill-card:hover {
+            border-color: rgba(56, 189, 248, 0.4);
+        }
+
+        .skill-card h4 {
+            color: var(--color-accent-blue);
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tag-pool {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background-color: var(--color-bg-tag);
+            color: var(--color-text-primary);
+            font-size: 0.85rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+        }
+
+        /* Projects Layout */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-node {
+            background-color: var(--color-bg-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .project-node::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: transparent;
+            transition: var(--transition-smooth);
+        }
+
+        .project-node:hover {
+            transform: translateY(-4px);
+            border-color: #2d3f59;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-node.production:hover::before {
+            background-color: var(--color-accent-blue);
+        }
+
+        .project-node.sandbox:hover::before {
+            background-color: var(--color-accent-green);
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .category-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+        }
+
+        .project-node.production .category-badge {
+            background-color: rgba(56, 189, 248, 0.1);
+            color: var(--color-accent-blue);
+        }
+
+        .project-node.sandbox .category-badge {
+            background-color: rgba(52, 211, 153, 0.1);
+            color: var(--color-accent-green);
+        }
+
+        .project-heading {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .project-summary {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .tech-stack-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-token {
+            font-size: 0.8rem;
+            color: var(--color-text-secondary);
+            background-color: rgba(255, 255, 255, 0.03);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            border: 1px solid var(--color-border);
+        }
+
+        .deployment-btn {
+            text-align: center;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.65rem;
+            border-radius: 6px;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-node.production .deployment-btn {
+            background-color: var(--color-accent-blue);
+            color: var(--color-bg-main);
+        }
+
+        .project-node.production .deployment-btn:hover {
+            background-color: #7dd3fc;
+        }
+
+        .project-node.sandbox .deployment-btn {
+            background-color: transparent;
+            color: var(--color-text-primary);
+            border: 1px solid var(--color-border);
+        }
+
+        .project-node.sandbox .deployment-btn:hover {
+            background-color: var(--color-bg-tag);
+            border-color: var(--color-text-secondary);
+        }
+
+        /* Timeline / Linear Structures */
+        .linear-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .timeline-block {
+            background-color: var(--color-bg-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-smooth);
+        }
+
+        .timeline-block:hover {
+            border-color: #2d3f59;
+        }
+
+        .block-details h4 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        .block-details p {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+            margin-top: 0.25rem;
+        }
+
+        .status-badge {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-accent-blue);
+            background-color: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            padding: 0.3rem 0.9rem;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .status-badge.green-variant {
+            color: var(--color-accent-green);
+            background-color: rgba(52, 211, 153, 0.08);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 2rem 1rem; }
+            .hero-section h1 { font-size: 2.6rem; }
+            .timeline-block { flex-direction: column; align-items: flex-start; gap: 0.75rem; padding: 1.5rem; }
+            .status-badge { align-self: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="portfolio-container">
+    <!-- Hero / Professional Overview Section -->
+    <header class="hero-section">
+        <h1>Mahboobunnisa</h1>
+        <div class="hero-title">Software Engineer | Full-Stack &amp; Intelligence Systems</div>
+        <p class="hero-bio">
+            Undergraduate software developer engineering full-stack platforms and data science architectures[span_0](start_span)[span_0](end_span). Experienced in implementing vector space models, configuring Retrieval-Augmented Generation (RAG) indices, and deploying responsive web interfaces driven by clean core CS principles[span_1](start_span)[span_1](end_span).
+        </p>
+        <div class="action-bar">
+            <a href="https://github.com/Mahbooba9" class="action-link" target="_blank">📁 GitHub Repository Matrix</a>
+            <a href="https://www.linkedin.com/in/mahboobunnisa" class="action-link" target="_blank">💼 LinkedIn Network</a>
+            <a href="mailto:mahboobunnisa987@gmail.com" class="action-link">✉️ Establish Contact</a>
+        </div>
+    </header>
+
+    <!-- Core Skill Matrix -->
+    <section>
+        <h3 class="section-title">Technical Skill Matrix</h3>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h4>Languages</h4>
+                <div class="tag-pool">
+                    <span class="skill-tag">Java</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">JavaScript</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <h4>Core Foundations</h4>
+                <div class="tag-pool">
+                    <span class="skill-tag">Algorithms & DSA</span>
+                    <span class="skill-tag">OOPs Design</span>
+                    <span class="skill-tag">DBMS Control</span>
+                    <span class="skill-tag">Operating Systems</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <h4>Backend & Cloud DBs</h4>
+                <div class="tag-pool">
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">Express.js</span>
+                    <span class="skill-tag">MongoDB</span>
+                    <span class="skill-tag">MySQL</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <h4>UI & Orchestration</h4>
+                <div class="tag-pool">
+                    <span class="skill-tag">React.js</span>
+                    <span class="skill-tag">HTML5 / CSS3</span>
+                    <span class="skill-tag">Git Version Control</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical System Deployments -->
+    <section>
+        <h3 class="section-title">Production Implementations</h3>
+        <div class="projects-grid">
+            
+            <!-- System Node 1 -->
+            <div class="project-node production">
+                <div>
+                    <div class="project-meta">
+                        <span class="category-badge">Production Architecture</span>
+                    </div>
+                    <h4 class="project-heading">Student Email RAG Assistant</h4>
+                    <p class="project-summary">Engineered a Retrieval-Augmented Generation system executing semantic token searches across enterprise data layers[span_2](start_span)[span_2](end_span). Optimized retrieval efficiency metrics by 70%[span_3](start_span)[span_3](end_span).</p>
+                    <div class="tech-stack-wrap">
+                        <span class="tech-token">React</span><span class="tech-token">Node.js</span><span class="tech-token">Pinecone</span><span class="tech-token">Llama-3</span>
+                    </div>
+                </div>
+                <a href="#" class="deployment-btn">Initialize Live Demo</a>
+            </div>
+
+            <!-- System Node 2 -->
+            <div class="project-node production">
+                <div>
+                    <div class="project-meta">
+                        <span class="category-badge">Production Architecture</span>
+                    </div>
+                    <h4 class="project-heading">AI Career Assistant</h4>
+                    <p class="project-summary">Architected a continuous data processing stack parsing system logs with Applicant Tracking System (ATS) matching matrix arrays and authenticated JWT token layers[span_4](start_span)[span_4](end_span).</p>
+                    <div class="tech-stack-wrap">
+                        <span class="tech-token">React.js</span><span class="tech-token">Express</span><span class="tech-token">MongoDB</span><span class="tech-token">Gemini API</span>
+                    </div>
+                </div>
+                <a href="#" class="deployment-btn">Initialize Live Demo</a>
+            </div>
+
+            <!-- System Node 3 -->
+            <div class="project-node production">
+                <div>
+                    <div class="project-meta">
+                        <span class="category-badge">Production Architecture</span>
+                    </div>
+                    <h4 class="project-heading">Luminate AI Explainer</h4>
+                    <p class="project-summary">Constructed an AI-powered education node mapping raw concepts to real-time interactive assessment suites via advanced language models and profile isolation[span_5](start_span)[span_5](end_span).</p>
+                    <div class="tech-stack-wrap">
+                        <span class="tech-token">React.js</span><span class="tech-token">Node.js</span><span class="tech-token">MongoDB</span><span class="tech-token">Gemini API</span>
+                    </div>
+                </div>
+                <a href="#" class="deployment-btn">Initialize Live Demo</a>
+            </div>
+
+            <!-- System Node 4 -->
+            <div class="project-node sandbox">
+                <div>
+                    <div class="project-meta">
+                        <span class="category-badge">Hackathon Tier</span>
+                    </div>
+                    <h4 class="project-heading">CodeSpark Quiz Interface</h4>
+                    <p class="project-summary">Rapid implementation of a responsive client runtime environment developed inside a strict 72-hour development window. Achieved 3rd place overall out of 150 teams[span_6](start_span)[span_6](end_span).</p>
+                    <div class="tech-stack-wrap">
+                        <span class="tech-token">Vanilla JS</span><span class="tech-token">HTML5</span><span class="tech-token">CSS3 Grid</span><span class="tech-token">Git</span>
+                    </div>
+                </div>
+                <a href="https://github.com/Mahbooba9" class="deployment-btn" target="_blank">Analyze Source Code</a>
+            </div>
+
+            <!-- System Node 5 -->
+            <div class="project-node sandbox">
+                <div>
+                    <div class="project-meta">
+                        <span class="category-badge">Engineering Lab</span>
+                    </div>
+                    <h4 class="project-heading">Venu-06 Student Track</h4>
+                    <p class="project-summary">Engineered a relational tracker handling asynchronous user profiles to display performance indicators and telemetry across timelines.</p>
+                    <div class="tech-stack-wrap">
+                        <span class="tech-token">JavaScript</span><span class="tech-token">Database Layer</span><span class="tech-token">System Design</span>
+                    </div>
+                </div>
+                <a href="https://github.com/Mahbooba9" class="deployment-btn" target="_blank">Analyze Source Code</a>
+            </div>
+
+            <!-- System Node 6 -->
+            <div class="project-node sandbox">
+                <div>
+                    <div class="project-meta">
+                        <span class="category-badge">Engineering Lab</span>
+                    </div>
+                    <h4 class="project-heading">MP Fashions Enterprise</h4>
+                    <p class="project-summary">Assembled a highly responsive client browsing view tailored for asset rendering, state retention, and inventory classification rules.</p>
+                    <div class="tech-stack-wrap">
+                        <span class="tech-token">HTML5 Modules</span><span class="tech-token">Responsive CSS</span>
+                    </div>
+                </div>
+                <a href="https://github.com/Mahbooba9" class="deployment-btn" target="_blank">Analyze Source Code</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Verified Achievements & Engineering Credentials -->
+    <section>
+        <h3 class="section-title">Verified Engineering Credentials</h3>
+        <div class="linear-timeline">
+            <div class="timeline-block">
+                <div class="block-details">
+                    <h4>3rd Place Finish — CodeSpark 72-Hour Rapid Build Sprint</h4>
+                    <p>Awarded for design execution out of 150 competing multi-discipline engineering teams[span_7](start_span)[span_7](end_span).</p>
+                </div>
+                <span class="status-badge">Hackathon Distinction</span>
+            </div>
+            <div class="timeline-block">
+                <div class="block-details">
+                    <h4>4th Place Competitor — Technical Coding Contest (SITAR-2K26)</h4>
+                    <p>Ranked among top algorithm developers across 40 invitation-only finalist selections[span_8](start_span)[span_8](end_span).</p>
+                </div>
+                <span class="status-badge">Algorithmic Distinction</span>
+            </div>
+            <div class="timeline-block">
+                <div class="block-details">
+                    <h4>Database Management Systems — Academic Specialist</h4>
+                    <p>Advanced standard certification parameters verified by NPTEL, IIT Kharagpur[span_9](start_span)[span_9](end_span).</p>
+                </div>
+                <span class="status-badge green-variant">IIT Certified</span>
+            </div>
+            <div class="timeline-block">
+                <div class="block-details">
+                    <h4>Advanced Programming in Java</h4>
+                    <p>Verified object-oriented structural metrics issued via NPTEL, IIT Kharagpur[span_10](start_span)[span_10](end_span).</p>
+                </div>
+                <span class="status-badge green-variant">IIT Certified</span>
+            </div>
+            <div class="timeline-block">
+                <div class="block-details">
+                    <h4>AWS Data Engineering Pipeline Foundations</h4>
+                    <p>EduSkills Virtual Architecture Training Framework (AICTE Approved Syllabus)[span_11](start_span)[span_11](end_span).</p>
+                </div>
+                <span class="status-badge green-variant">Cloud Infrastructure</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Academic Groundwork -->
+    <section>
+        <h3 class="section-title">Academic Base</h3>
+        <div class="linear-timeline">
+            <div class="timeline-block">
+                <div class="block-details">
+                    <h4>B.Tech in Computer Science and Engineering (Data Science)</h4>
+                    <p>Prasad V. Potluri Siddhartha Institute of Technology (2023 - Present)[span_12](start_span)[span_12](end_span)</p>
+                </div>
+                <span class="status-badge">Cumulative Metric: 84.4%</span>
+            </div>
+        </div>
+    </section>
+</div>
+
+</body>
+</html>
